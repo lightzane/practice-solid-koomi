@@ -10,6 +10,7 @@ How this project was created:
 2. `npm install`
 3. `npm run dev` or `npm start`
 4. [Configure Vite to allow serverless application](#configure-vite-to-allow-serverless-application)
+5. [Install Solid Router](#install-solid-router)
 
 ### Creating the Project
 
@@ -48,4 +49,56 @@ export default defineConfig({
     // * [Lz] 3. In docs/index.html - script.js, Remove -> type="module" crossorigin and change to "defer"
   },
 });
+```
+
+### Install Solid Router
+
+https://github.com/solidjs/solid-router
+
+```
+npm i @solidjs/router
+```
+
+**index.tsx**
+
+```ts
+import { render } from 'solid-js/web';
+import { Router } from '@solidjs/router';
+import App from './App';
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  document.getElementById('app'),
+);
+```
+
+**App.tsx**
+
+```ts
+import { Routes, Route } from '@solidjs/router';
+
+import Home from './pages/Home';
+import Users from './pages/Users';
+import Product from './pages/Product';
+
+export default function App() {
+  return (
+    <>
+      <h1>My Site with Lots of Pages</h1>
+      <Routes>
+        <Route path='/' component={Home} />
+        <Route path='/users' component={Users} />
+        <Route path={'/product/:productId'} component={Product}></Route>
+        <Route
+          path='/about'
+          element={<div>This site was made with Solid</div>}
+        />
+      </Routes>
+    </>
+  );
+}
 ```

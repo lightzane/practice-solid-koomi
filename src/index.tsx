@@ -3,6 +3,8 @@ import './index.css';
 import { render } from 'solid-js/web';
 
 import App from './App';
+import { Router, hashIntegration } from '@solidjs/router';
+import { ShoppingBagContextProvider } from './context/shoping-bag.context';
 
 const root = document.getElementById('root');
 
@@ -12,4 +14,13 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root!);
+render(
+  () => (
+    <Router source={hashIntegration()}>
+      <ShoppingBagContextProvider>
+        <App />
+      </ShoppingBagContextProvider>
+    </Router>
+  ),
+  root!,
+);
